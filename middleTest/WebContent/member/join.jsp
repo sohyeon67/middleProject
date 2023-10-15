@@ -105,8 +105,8 @@ $(function() {
 			url : "<%= request.getContextPath()%>/IdCheck.do",
 			data : { "id" : idvalue },
 			type : 'get',
-			success : function(res) {
-				$('#idcheck').text(res.flag).css('color', 'red');
+			success : function(flag) {
+				$('#idcheck').text(flag).css('color', 'red');
 			},
 			error : function(xhr) {
 				alert("상태 : " + xhr.status);

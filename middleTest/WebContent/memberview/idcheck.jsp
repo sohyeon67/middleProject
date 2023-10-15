@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
+// 안쓸 파일임 ---------------------------------------------------------
 	String res = (String)request.getAttribute("result");
 	
 	if(res == null) {	// 사용 가능

@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
 import kr.or.ddit.member.service.IMemberService;
 import kr.or.ddit.member.service.MemberServiceImpl;
 
@@ -15,6 +17,9 @@ public class IdCheck extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("application/json; charset=utf-8");
 		
 		// 전송 데이터 받기
 		String userId = request.getParameter("id");
@@ -25,9 +30,20 @@ public class IdCheck extends HttpServlet {
 		// 메소드 실행
 		String res = service.idCheck(userId);
 		
-		request.setAttribute("result", res);
+		Gson gson = new Gson();
+		String flag = null;
 		
-		request.getRequestDispatcher("/memberview/idcheck.jsp").forward(request, response);
+		if(res==null) {
+			flag = gson.toJson("사용 가능 ID");
+		} else {
+			flag = gson.toJson("사용 불가능 ID");
+		}
+		
+		response.getWriter().write(flag);
+		response.flushBuffer();
+		//request.setAttribute("result", res);
+		
+		//request.getRequestDispatcher("/memberview/idcheck.jsp").forward(request, response);
 	}
 
 }
